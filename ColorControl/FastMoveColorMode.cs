@@ -5,6 +5,11 @@ namespace ColorControl
 {
 	class FastMoveColorMode : ColorMode
 	{
+		public FastMoveColorMode() : base()
+		{
+			CurrentColor = Colors.BurlyWood;
+		}
+
 		public override async Task UpdateAsync(string address)
 		{
 			CurrentColor = Color.FromRgb(

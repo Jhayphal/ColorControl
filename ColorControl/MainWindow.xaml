@@ -6,25 +6,28 @@
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:local="clr-namespace:ColorControl"
 		mc:Ignorable="d"
-		Title="MainWindow" Height="450" Width="800">
+		Title="Управление RBG LED лентой" Height="150" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow">
 
 	<Window.Resources>
 		<ResourceDictionary>
 			<local:PropertiesModel x:Key="context"/>
 		</ResourceDictionary>
 	</Window.Resources>
-	<StackPanel Orientation="Vertical" DataContext="{StaticResource context}">
-		<StackPanel x:Name="IPAddress" Orientation="Horizontal">
-			<TextBlock Text="IP-адрес:"/>
-			<TextBox Text="{Binding Address}"/>
-		</StackPanel>
-		<StackPanel x:Name="Mode" Orientation="Horizontal">
-			<TextBlock Text="Режим:"/>
-			<ComboBox ItemsSource="{Binding Modes}" SelectedItem="{Binding Mode}" DisplayMemberPath="Name"/>
-		</StackPanel>
-		<StackPanel x:Name="ColorPicker" Orientation="Horizontal" Visibility="{Binding Mode.ColorPickerVisibility}">
-			<TextBlock Text="Указать цвет:"/>
-			<xctk:ColorPicker SelectedColor="{Binding Mode.CurrentColor}" MinWidth="250"/>
-		</StackPanel>
-	</StackPanel>
+	<Grid DataContext="{StaticResource context}" Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="2*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<TextBlock Text="IP-address:" VerticalAlignment="Center"/>
+		<TextBox Grid.Column="1" Text="{Binding Address}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+		<TextBlock Grid.Row="1" Text="Mode:" VerticalAlignment="Center"/>
+		<ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Modes}" SelectedItem="{Binding Mode}" DisplayMemberPath="Name" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+		<TextBlock Grid.Row="2" Text="Color:" VerticalAlignment="Center"/>
+		<xctk:ColorPicker Grid.Row="2" Grid.Column="1" SelectedColor="{Binding Mode.CurrentColor}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+	</Grid>
 </Window>

@@ -72,7 +72,8 @@ namespace ColorControl
 		public PropertiesModel()
 		{
 			modes.Add(mode);
-			modes.Add(new FastMoveColorMode { Name = "Плывущая пиздота", CurrentColor = Colors.BurlyWood });
+			modes.Add(new CircleColorMode());
+			modes.Add(new FastMoveColorMode());
 			modes.Add(new SlowMoveColorMode());
 			modes.Add(new FlowColorMode());
 			modes.Add(new FlashColorMode());
