@@ -1,0 +1,30 @@
+﻿<Window x:Class="ColorControl.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+		xmlns:local="clr-namespace:ColorControl"
+		mc:Ignorable="d"
+		Title="MainWindow" Height="450" Width="800">
+
+	<Window.Resources>
+		<ResourceDictionary>
+			<local:PropertiesModel x:Key="context"/>
+		</ResourceDictionary>
+	</Window.Resources>
+	<StackPanel Orientation="Vertical" DataContext="{StaticResource context}">
+		<StackPanel x:Name="IPAddress" Orientation="Horizontal">
+			<TextBlock Text="IP-адрес:"/>
+			<TextBox Text="{Binding Address}"/>
+		</StackPanel>
+		<StackPanel x:Name="Mode" Orientation="Horizontal">
+			<TextBlock Text="Режим:"/>
+			<ComboBox ItemsSource="{Binding Modes}" SelectedItem="{Binding Mode}" DisplayMemberPath="Name"/>
+		</StackPanel>
+		<StackPanel x:Name="ColorPicker" Orientation="Horizontal" Visibility="{Binding Mode.ColorPickerVisibility}">
+			<TextBlock Text="Указать цвет:"/>
+			<xctk:ColorPicker SelectedColor="{Binding Mode.CurrentColor}" MinWidth="250"/>
+		</StackPanel>
+	</StackPanel>
+</Window>
