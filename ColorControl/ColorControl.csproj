@@ -73,12 +73,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CircleColorMode.cs" />
-    <Compile Include="FastMoveColorMode.cs" />
-    <Compile Include="FlashColorMode.cs" />
-    <Compile Include="FlowColorMode.cs" />
-    <Compile Include="SlowMoveColorMode.cs" />
-    <Compile Include="StaticColorMode.cs" />
+    <Compile Include="ColorModes\CircleColorMode.cs" />
+    <Compile Include="ColorModes\FastMoveColorMode.cs" />
+    <Compile Include="ColorModes\StrobeLightMode.cs" />
+    <Compile Include="ColorModes\FlowColorMode.cs" />
+    <Compile Include="ColorModes\SlowMoveColorMode.cs" />
+    <Compile Include="ColorModes\StaticColorMode.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,14 +87,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ColorMode.cs" />
+    <Compile Include="ColorModes\ColorMode.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PropertiesModel.cs" />
+    <Compile Include="Models\PropertiesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -112,6 +112,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Arduino\firmware.ino" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -123,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Mcdo-Design-Compass-Color-Meter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Arduino\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

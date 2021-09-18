@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Управление цветом</title>
+    <link rel="icon" sizes="192x192" href="https://htmlcolorcodes.com/assets/images/icons/icon-192x192.png">
+    <style>
+        @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css');
+
+        html,
+        body {
+            height: 100%
+        }
+
+        b {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        input[type="color"] {
+            width: 50%;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <b>Укажите цвет:</b>
+        <input type="color" id="picker" />
+    </div>
+    <script>
+            picker.oninput = function() {
+                "use strict";
+
+                let rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.value);
+                let r = parseInt(rgb[1], 16);
+                let g = parseInt(rgb[2], 16);
+                let b = parseInt(rgb[3], 16);
+
+                let query = `/color?R=${r}&G=${g}&B=${b}`;
+                let request = new XMLHttpRequest();
+                request.open("GET", query, true);
+                request.send();
+            }
+    </script>
+</body>
+</html>

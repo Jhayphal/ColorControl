@@ -9,8 +9,6 @@ namespace ColorControl
 
 		public CircleColorMode() : base()
 		{
-			CurrentColor = Colors.Green;
-
 			Name = "Color circle";
 		}
 

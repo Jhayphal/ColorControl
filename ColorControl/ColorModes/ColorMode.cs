@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,6 +37,8 @@ namespace ColorControl
 			} 
 		}
 
+		public Color LastColor { get; protected set; }
+
 		public Color CurrentColor
 		{
 			get => currentColor;
@@ -57,7 +60,7 @@ namespace ColorControl
 
 		public ColorMode()
 		{
-			currentColor = Colors.Black;
+			CurrentColor = Colors.Black;
 			name = GetType().Name;
 		}
 
@@ -66,26 +69,27 @@ namespace ColorControl
 			if (string.IsNullOrWhiteSpace(address))
 				return;
 
+			if (CurrentColor == LastColor)
+				return;
+
+			if (LastColor != CurrentColor)
+			{
+				LastColor = CurrentColor;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LastColor"));
+			}
+
 			var request = $"http://{address}/color?R={CurrentColor.R}&G={CurrentColor.G}&B={CurrentColor.B}";
 
-			try
-			{
-				using (WebClient client = new WebClient())
-					await client.UploadStringTaskAsync(request, string.Empty);
-			}
-			catch { }
+			HttpWebRequest query = WebRequest.CreateHttp(request);
+			query.KeepAlive = false;
 
-			//HttpWebRequest query = WebRequest.CreateHttp(request);
-			//query.Timeout = 1;
-			//try
-			//{
-			//	query.GetResponse();
-			//}
-			//catch { }
-			//finally
-			//{
-			//	query.Abort();
-			//}
+			var response = await query.GetResponseAsync();
+
+			using(var stream = response.GetResponseStream())
+			using (var reader = new StreamReader(stream))
+			{
+				_ = await reader.ReadToEndAsync();
+			}
 		}
 	}
 }

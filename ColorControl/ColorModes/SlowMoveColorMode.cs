@@ -5,6 +5,11 @@ namespace ColorControl
 {
 	class SlowMoveColorMode : ColorMode
 	{
+		public SlowMoveColorMode() : base()
+		{
+			Name = "Slow move";
+		}
+
 		public override async Task UpdateAsync(string address)
 		{
 			var rgbled_r = (CurrentColor.R + 1) & 0xFF;

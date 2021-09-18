@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Windows;
-using System.Windows.Media;
 
 namespace ColorControl
 {
@@ -65,7 +62,7 @@ namespace ColorControl
 		private IPAddress address
 			= new IPAddress(new byte[] { 192, 168, 1, 166 });
 
-		private ColorMode mode = new StaticColorMode { Name = "Статический цвет", CurrentColor = Colors.Red };
+		private ColorMode mode = new StaticColorMode();
 
 		private List<ColorMode> modes = new List<ColorMode>();
 
@@ -76,7 +73,7 @@ namespace ColorControl
 			modes.Add(new FastMoveColorMode());
 			modes.Add(new SlowMoveColorMode());
 			modes.Add(new FlowColorMode());
-			modes.Add(new FlashColorMode());
+			modes.Add(new StrobeLightMode());
 		}
 	}
 }

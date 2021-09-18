@@ -9,7 +9,7 @@ namespace ColorControl
 
 		public FlowColorMode() : base()
 		{
-			CurrentColor = Colors.Black;
+			Name = "Color flow";
 		}
 
 		public override async Task UpdateAsync(string address)

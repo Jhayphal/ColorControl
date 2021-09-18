@@ -1,19 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
+﻿using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ColorControl
 {
@@ -28,7 +14,7 @@ namespace ColorControl
 		{
 			InitializeComponent();
 
-			timer = new Timer(250D);
+			timer = new Timer(75D);
 			timer.Elapsed += Timer_Elapsed;
 			timer.AutoReset = true;
 			timer.Start();
@@ -42,6 +28,11 @@ namespace ColorControl
 				return;
 
 			await context.Mode.UpdateAsync(context.Address);
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			timer?.Dispose();
 		}
 	}
 }

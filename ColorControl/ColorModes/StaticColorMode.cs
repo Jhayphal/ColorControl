@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 
 namespace ColorControl
 {
@@ -7,6 +8,10 @@ namespace ColorControl
 		public StaticColorMode() : base()
 		{
 			ColorPickerVisibility = Visibility.Visible;
+
+			CurrentColor = Colors.OrangeRed;
+
+			Name = "Static color";
 		}
 	}
 }

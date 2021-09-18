@@ -7,7 +7,7 @@ namespace ColorControl
 	{
 		public FastMoveColorMode() : base()
 		{
-			CurrentColor = Colors.BurlyWood;
+			Name = "Fast move";
 		}
 
 		public override async Task UpdateAsync(string address)

@@ -6,7 +6,13 @@
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:local="clr-namespace:ColorControl"
 		mc:Ignorable="d"
-		Title="Управление RBG LED лентой" Height="150" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow">
+		Title="RBG LED control"
+		Height="150"
+		Width="300"
+		WindowStartupLocation="CenterScreen"
+		ResizeMode="CanMinimize"
+		WindowStyle="SingleBorderWindow"
+		Closing="Window_Closing">
 
 	<Window.Resources>
 		<ResourceDictionary>
