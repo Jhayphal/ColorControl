@@ -10,14 +10,14 @@ namespace ColorControl
 			Name = "Strobe light";
 		}
 
-		public override async Task UpdateAsync(string address)
+		public override async Task UpdateAsync(string address, bool force = false)
 		{
 			if (CurrentColor == Colors.Black)
 				CurrentColor = Colors.White;
 			else
 				CurrentColor = Colors.Black;
 
-			await base.UpdateAsync(address);
+			await base.UpdateAsync(address, force);
 		}
 	}
 }

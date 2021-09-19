@@ -10,7 +10,7 @@ namespace ColorControl
 			Name = "Slow move";
 		}
 
-		public override async Task UpdateAsync(string address)
+		public override async Task UpdateAsync(string address, bool force = false)
 		{
 			var rgbled_r = (CurrentColor.R + 1) & 0xFF;
 			var rgbled_g = (CurrentColor.G + 2) & 0xFF;
@@ -18,7 +18,7 @@ namespace ColorControl
 
 			CurrentColor = Color.FromRgb((byte)rgbled_r, (byte)rgbled_g, (byte)rgbled_b);
 
-			await base.UpdateAsync(address);
+			await base.UpdateAsync(address, force);
 		}
 	}
 }

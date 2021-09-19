@@ -12,7 +12,7 @@ namespace ColorControl
 			Name = "Color flow";
 		}
 
-		public override async Task UpdateAsync(string address)
+		public override async Task UpdateAsync(string address, bool force = false)
 		{
 			var rgbled_r = (int)CurrentColor.R;
 			var rgbled_g = (int)CurrentColor.G;
@@ -90,7 +90,7 @@ namespace ColorControl
 
 			CurrentColor = Color.FromRgb((byte)rgbled_r, (byte)rgbled_g, (byte)rgbled_b);
 
-			await base.UpdateAsync(address);
+			await base.UpdateAsync(address, force);
 		}
 	}
 }

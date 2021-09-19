@@ -58,13 +58,13 @@ namespace ColorControl
 			return v1;
 		}
 
-		public override async Task UpdateAsync(string address)
+		public override async Task UpdateAsync(string address, bool force = false)
 		{
 			hue = (hue + 1) % 360;
 
 			CurrentColor = HSLToRGB(hue, 1f, 0.5f);
 
-			await base.UpdateAsync(address);
+			await base.UpdateAsync(address, force);
 		}
 	}
 }

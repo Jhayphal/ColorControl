@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
@@ -6,7 +7,7 @@ using System.Windows;
 
 namespace ColorControl
 {
-	class PropertiesModel : INotifyPropertyChanged
+	class PropertiesModel : INotifyPropertyChanged, IDisposable
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		
@@ -41,6 +42,7 @@ namespace ColorControl
 				if (mode != value)
 				{
 					mode = value;
+					mode.UpdateAsync(Address, true).GetAwaiter();
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Mode"));
 				}
 			}
@@ -59,6 +61,8 @@ namespace ColorControl
 			}
 		}
 
+		private Timer timer;
+
 		private IPAddress address
 			= new IPAddress(new byte[] { 192, 168, 1, 166 });
 
@@ -74,6 +78,21 @@ namespace ColorControl
 			modes.Add(new SlowMoveColorMode());
 			modes.Add(new FlowColorMode());
 			modes.Add(new StrobeLightMode());
+
+			timer = new Timer(75D);
+			timer.Elapsed += Timer_Elapsed;
+			timer.AutoReset = true;
+			timer.Start();
+		}
+
+		public void Dispose()
+		{
+			timer?.Dispose();
+		}
+
+		private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			await mode?.UpdateAsync(Address);
 		}
 	}
 }

@@ -64,12 +64,12 @@ namespace ColorControl
 			name = GetType().Name;
 		}
 
-		public virtual async Task UpdateAsync(string address)
+		public virtual async Task UpdateAsync(string address, bool force = false)
 		{
 			if (string.IsNullOrWhiteSpace(address))
 				return;
 
-			if (CurrentColor == LastColor)
+			if (!force && CurrentColor == LastColor)
 				return;
 
 			if (LastColor != CurrentColor)
