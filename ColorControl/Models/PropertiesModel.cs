@@ -77,9 +77,8 @@ namespace ColorControl.Models
 			modes.Add(new CircleColorMode());
 			modes.Add(new FlowColorMode());
 			modes.Add(new StrobeLightMode());
-			modes.Add(new MusicColorMode());
 
-			timer = new Timer(35D);
+			timer = new Timer(100D);
 			timer.Elapsed += Timer_Elapsed;
 			timer.AutoReset = true;
 			timer.Start();

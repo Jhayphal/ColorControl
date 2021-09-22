@@ -67,30 +67,34 @@ namespace ColorControl.ColorModes
 
 		public virtual async Task UpdateAsync(string address, bool force = false)
 		{
-			if (string.IsNullOrWhiteSpace(address))
-				return;
-
-			if (!force && CurrentColor == LastColor)
-				return;
-
-			if (LastColor != CurrentColor)
+			try
 			{
-				LastColor = CurrentColor;
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LastColor"));
+				if (string.IsNullOrWhiteSpace(address))
+					return;
+
+				if (!force && CurrentColor == LastColor)
+					return;
+
+				if (LastColor != CurrentColor)
+				{
+					LastColor = CurrentColor;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LastColor"));
+				}
+
+				var request = $"http://{address}/color?R={CurrentColor.R}&G={CurrentColor.G}&B={CurrentColor.B}";
+
+				HttpWebRequest query = WebRequest.CreateHttp(request);
+				query.KeepAlive = false;
+
+				var response = await query.GetResponseAsync();
+
+				using (var stream = response.GetResponseStream())
+				using (var reader = new StreamReader(stream))
+				{
+					_ = await reader.ReadToEndAsync();
+				}
 			}
-
-			var request = $"http://{address}/color?R={CurrentColor.R}&G={CurrentColor.G}&B={CurrentColor.B}";
-
-			HttpWebRequest query = WebRequest.CreateHttp(request);
-			query.KeepAlive = false;
-
-			var response = await query.GetResponseAsync();
-
-			using(var stream = response.GetResponseStream())
-			using (var reader = new StreamReader(stream))
-			{
-				_ = await reader.ReadToEndAsync();
-			}
+			catch { }
 		}
 
 		public virtual void Dispose()
