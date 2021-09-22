@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Windows;
+using ColorControl.ColorModes;
 
-namespace ColorControl
+namespace ColorControl.Models
 {
 	class PropertiesModel : INotifyPropertyChanged, IDisposable
 	{
@@ -74,12 +75,11 @@ namespace ColorControl
 		{
 			modes.Add(mode);
 			modes.Add(new CircleColorMode());
-			modes.Add(new FastMoveColorMode());
-			modes.Add(new SlowMoveColorMode());
 			modes.Add(new FlowColorMode());
 			modes.Add(new StrobeLightMode());
+			modes.Add(new MusicColorMode());
 
-			timer = new Timer(75D);
+			timer = new Timer(35D);
 			timer.Elapsed += Timer_Elapsed;
 			timer.AutoReset = true;
 			timer.Start();
@@ -87,12 +87,31 @@ namespace ColorControl
 
 		public void Dispose()
 		{
-			timer?.Dispose();
+			if (timer != null)
+			{
+				timer.Dispose();
+				timer = null;
+			}
+
+			if (modes != null)
+			{
+				foreach (var mode in modes)
+					mode.Dispose();
+
+				modes = null;
+			}
 		}
 
 		private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
 		{
-			await mode?.UpdateAsync(Address);
+			if (timer != null)
+				timer.Enabled = false;
+
+			if (timer != null)
+				await mode?.UpdateAsync(Address);
+
+			if (timer != null)
+				timer.Enabled = true;
 		}
 	}
 }

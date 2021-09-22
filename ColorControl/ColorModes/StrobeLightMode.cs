@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace ColorControl
+namespace ColorControl.ColorModes
 {
 	class StrobeLightMode : ColorMode
 	{

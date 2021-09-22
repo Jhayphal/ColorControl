@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace ColorControl
+namespace ColorControl.ColorModes
 {
 	class CircleColorMode : ColorMode
 	{
@@ -38,7 +38,7 @@ namespace ColorControl
 			return Color.FromRgb(r, g, b);
 		}
 
-		private static float HueToRGB(float v1, float v2, float vH)
+		public static float HueToRGB(float v1, float v2, float vH)
 		{
 			if (vH < 0)
 				vH += 1;

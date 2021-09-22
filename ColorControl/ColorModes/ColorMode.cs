@@ -1,13 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ColorControl
+namespace ColorControl.ColorModes
 {
-	abstract class ColorMode : INotifyPropertyChanged
+	abstract class ColorMode : INotifyPropertyChanged, IDisposable
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 		
@@ -90,6 +91,11 @@ namespace ColorControl
 			{
 				_ = await reader.ReadToEndAsync();
 			}
+		}
+
+		public virtual void Dispose()
+		{
+			// none
 		}
 	}
 }

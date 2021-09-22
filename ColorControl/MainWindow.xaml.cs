@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ColorControl.Models;
+using System.Windows;
 
 namespace ColorControl
 {
@@ -7,15 +8,18 @@ namespace ColorControl
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		readonly PropertiesModel context;
+
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			context = this.FindResource("context") as PropertiesModel;
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			var context = this.FindResource("context") as PropertiesModel;
-			context?.Dispose();
+			context.Dispose();
 		}
 	}
 }
