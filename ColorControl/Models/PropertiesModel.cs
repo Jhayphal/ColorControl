@@ -74,11 +74,12 @@ namespace ColorControl.Models
 		public PropertiesModel()
 		{
 			modes.Add(mode);
+			modes.Add(new ScreenColorMode());
 			modes.Add(new CircleColorMode());
 			modes.Add(new FlowColorMode());
 			modes.Add(new StrobeLightMode());
 
-			timer = new Timer(100D);
+			timer = new Timer(1000D / 24D);
 			timer.Elapsed += Timer_Elapsed;
 			timer.AutoReset = true;
 			timer.Start();
