@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
@@ -59,6 +62,8 @@ namespace ColorControl.ColorModes
 
 		private Color currentColor;
 
+		private readonly List<long> statistics = new List<long>(100);
+
 		public ColorMode()
 		{
 			CurrentColor = Colors.Black;
@@ -86,6 +91,10 @@ namespace ColorControl.ColorModes
 				HttpWebRequest query = WebRequest.CreateHttp(request);
 				query.KeepAlive = false;
 
+#if DEBUG
+				Stopwatch clock = new Stopwatch();
+				clock.Start();
+#endif
 				var response = await query.GetResponseAsync();
 
 				using (var stream = response.GetResponseStream())
@@ -93,6 +102,18 @@ namespace ColorControl.ColorModes
 				{
 					_ = await reader.ReadToEndAsync();
 				}
+#if DEBUG
+				clock.Stop();
+
+				statistics.Add(clock.ElapsedMilliseconds);
+
+				if (statistics.Count == statistics.Capacity)
+				{
+					var avg = statistics.Average(x => x);
+					statistics.Clear();
+					Debug.WriteLine(avg);
+				}
+#endif
 			}
 			catch { }
 		}

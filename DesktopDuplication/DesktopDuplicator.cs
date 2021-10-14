@@ -15,7 +15,7 @@ namespace DesktopDuplication
 	/// <summary>
 	/// Provides access to frame-by-frame updates of a particular desktop (i.e. one monitor), with image and cursor information.
 	/// </summary>
-	public class DesktopDuplicator
+	public sealed class DesktopDuplicator
     {
         private Device mDevice;
         private Texture2DDescription mTextureDesc;
@@ -49,6 +49,8 @@ namespace DesktopDuplication
                 isFinalImage1 = !isFinalImage1;
             }
         }
+
+        public readonly bool Initialized;
 
         /// <summary>
         /// Duplicates the output of the specified monitor.
@@ -103,6 +105,8 @@ namespace DesktopDuplication
             try
             {
                 this.mDeskDupl = output1.DuplicateOutput(mDevice);
+
+                Initialized = true;
             }
             catch (SharpDXException ex)
             {

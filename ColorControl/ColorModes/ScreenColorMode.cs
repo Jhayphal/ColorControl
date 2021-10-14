@@ -1,6 +1,7 @@
 ﻿using DesktopDuplication;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,7 +32,7 @@ namespace ColorControl.ColorModes
 
 		public override async Task UpdateAsync(string address, bool force = false)
 		{
-			if (!inited)
+			if (!(inited && desktopDuplicator.Initialized))
 				return;
 
 			DesktopFrame frame = null;
@@ -40,8 +41,10 @@ namespace ColorControl.ColorModes
 			{
 				frame = desktopDuplicator.GetLatestFrame();
 			}
-			catch
+			catch(Exception e)
 			{
+				Debug.WriteLine(e.Message);
+
 				desktopDuplicator = new DesktopDuplicator(0);
 				
 				return;
